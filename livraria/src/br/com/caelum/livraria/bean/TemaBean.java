@@ -1,9 +1,10 @@
 package br.com.caelum.livraria.bean;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
-@ManagedBean
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
+@Named
 @SessionScoped
 public class TemaBean {
 	private String tema = "hot-sneaks";
