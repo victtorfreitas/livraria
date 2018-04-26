@@ -1,33 +1,47 @@
 package br.com.caelum.livraria.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
+import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Livro;
 
-public class LivroDao {
-	private DAO<Livro> dao;
+public class LivroDao implements Serializable {
 
-	public void adiciona(Livro t) {
-		dao.adiciona(t);
-	}
+	private static final long serialVersionUID = 1L;
 
-	public void remove(Livro t) {
-		dao.remove(t);
-	}
+	@Inject
+    private EntityManager em;
 
-	public void atualiza(Livro t) {
-		dao.atualiza(t);
-	}
+    private DAO<Livro> dao;
 
-	public List<Livro> listaTodos() {
-		return dao.listaTodos();
-	}
+    @PostConstruct
+    void init() {
+        this.dao = new DAO<Livro>(this.em, Livro.class);
+    }
 
-	public Livro buscaPorId(Integer id) {
-		return dao.buscaPorId(id);
-	}
+    public Livro buscaPorId(Integer livroId) {
+        return this.dao.buscaPorId(livroId);
+    }
 
-	public int quantidadeDeElementos() {
-		return dao.quantidadeDeElementos();
-	}
+    public void adiciona(Livro livro) {
+        this.dao.adiciona(livro);
+    }
+
+    public void atualiza(Livro livro) {
+        this.dao.atualiza(livro);
+    }
+
+    public void remove(Livro livro) {
+        this.dao.remove(livro);
+    }
+
+    public List<Livro> listaTodos() {
+        return this.dao.listaTodos();
+    }
+
 }

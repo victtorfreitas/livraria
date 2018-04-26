@@ -8,8 +8,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.caelum.livraria.dao.AutorDao;
-import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.modelo.Autor;
+import br.com.caelum.livraria.tx.Transacional;
 
 @Named
 @ViewScoped
@@ -24,9 +24,6 @@ public class AutorBean implements Serializable{
 	@Inject
 	private AutorDao dao;//Quem cuidará de instanciar esse objeto é o CDI
 	
-	public AutorBean(AutorDao dao) {
-		this.dao = dao;
-	}
 
 	public Autor getAutor() {
 		return autor;
@@ -35,7 +32,7 @@ public class AutorBean implements Serializable{
 	public List<Autor> getAutores() {
 		return this.dao.listaTodos();
 	}
-
+	@Transacional
 	public String gravar() {
 		System.out.println("Gravando autor " + this.autor.getNome());
 
@@ -54,7 +51,7 @@ public class AutorBean implements Serializable{
 		System.out.println("Carregando autor");
 		this.autor = autor;
 	}
-
+	@Transacional
 	public void remover(Autor autor) {
 		System.out.println("Removendo autor");
 		this.dao.remove(autor);

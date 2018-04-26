@@ -11,7 +11,7 @@ import javax.inject.Named;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
-import br.com.caelum.livraria.dao.DAO;
+import br.com.caelum.livraria.dao.LivroDao;
 import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.Venda;
 
@@ -23,7 +23,7 @@ public class VendasBean implements Serializable {
 	
 	public List<Venda> getVendas(long seed){
 		List<Venda> vendas = new ArrayList<Venda>();
-		List<Livro> livros = new DAO<Livro>(Livro.class).listaTodos();
+		List<Livro> livros = new LivroDao().listaTodos();
 		
 		Random random = new Random(seed); 
 		for (Livro livro : livros) {

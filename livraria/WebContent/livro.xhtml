@@ -95,17 +95,18 @@
 		</h:form>
 
 		<h:form id="formTabelaLivros">
-			<p:dataTable value="#{livroBean.livroDataModel}" var="livro"
-				id="tabelaLivros" paginator="true" rows="5" lazy="true"
-				paginatorPosition="bottom" widgetVar="tabelaLivros">
+			<p:dataTable value="#{livroBean.livros}" var="livro"
+				id="tabelaLivros" paginator="true" rows="5"
+				paginatorPosition="bottom" >
 
 				<f:facet name="header">Livros</f:facet>
 				<p:column headerText="Titulo" sortBy="#{livro.titulo}"
-					filterBy="#{livro.titulo}" filterMatchMode="startsWith">
+					filterBy="#{livro.titulo}" filterMatchMode="contains">
 					<h:outputText value="#{livro.titulo}" />
 				</p:column>
+				
 				<p:column headerText="Gênero" sortBy="#{livro.genero}"
-					filterBy="#{livro.genero}" filterMatchMode="startWith">
+					filterBy="#{livro.genero}" filterMatchMode="exact">
 					<f:facet name="filter">
 						<p:selectOneMenu onchange="PF('tabelaLivros').filter()">
 							<f:selectItem itemLabel="Selecione.." itemValue="#{null}"
@@ -115,6 +116,7 @@
 					</f:facet>
 					<h:outputText value="#{livro.genero}" />
 				</p:column>
+							
 				<p:column headerText="ISBN" sortBy="#{livro.isbn}"
 					filterBy="#{livro.isbn}" filterMatchMode="contains">
 					<h:outputText value="#{livro.isbn}" />

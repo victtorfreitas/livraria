@@ -9,16 +9,17 @@ import javax.persistence.Persistence;
 
 public class JPAUtil {
 
-	private static EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("livraria");
+    private static EntityManagerFactory emf = Persistence
+            .createEntityManagerFactory("livraria");
 
-	@Produces //Para o CDI que o metodo abaixo produz um EntityManager
-	@RequestScoped //O CDI precisa saber quantas vezes o EntityManager será criado, que no caso é uma vez na requisição inicial
-	public EntityManager getEntityManager() {
-		return emf.createEntityManager();
-	}
-	//Disposes é para o CDI identificar que será realizado quando a Requisição acima não existir, ou seja, quando o usuario fizer logoff
-	public void close(@Disposes EntityManager em) {
-		em.close();
-	}
+    @Produces
+    @RequestScoped
+    public EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+ 
+    public void close(@Disposes EntityManager em) {
+        em.close();
+    }
+
 }

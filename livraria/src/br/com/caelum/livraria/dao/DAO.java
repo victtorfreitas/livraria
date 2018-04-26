@@ -3,52 +3,38 @@ package br.com.caelum.livraria.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import br.com.caelum.livraria.tx.Transacional;
 
 public class DAO<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private final Class<T> classe;
+	@Inject
 	private EntityManager em;
 
 	public DAO(EntityManager em, Class<T> classe) {
 		this.em = em;
 		this.classe = classe;
 	}
-
+	@Transacional
 	public void adiciona(T t) {
-
-		// consegue a entity manager
-
-		// abre transacao
-		em.getTransaction().begin();
-
 		// persiste o objeto
 		em.persist(t);
 
-		// commita a transacao
-		em.getTransaction().commit();
-
-		// fecha a entity manager
 	}
-
+	@Transacional
 	public void remove(T t) {
-		em.getTransaction().begin();
-
 		em.remove(em.merge(t));
-
-		em.getTransaction().commit();
 	}
 
 	public void atualiza(T t) {
-		em.getTransaction().begin();
-
 		em.merge(t);
-
-		em.getTransaction().commit();
 	}
 
 	public List<T> listaTodos() {

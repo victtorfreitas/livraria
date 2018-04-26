@@ -14,10 +14,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.caelum.livraria.dao.AutorDao;
-import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.dao.LivroDao;
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Livro;
+import br.com.caelum.livraria.tx.Transacional;
 
 @Named
 @ViewScoped
@@ -40,10 +40,7 @@ public class LivroBean implements Serializable {
 	private List<String> generos = Arrays.asList("Romance","Drama", "Ação");
 	
 	//Construtor
-	public LivroBean(LivroDao livroDao, AutorDao autorDao) {
-		this.livroDao = livroDao;
-		this.autorDao = autorDao;
-	}
+
 
 	public void setAutorId(Integer autorId) {
 		this.autorId = autorId;
@@ -87,7 +84,7 @@ public class LivroBean implements Serializable {
 		this.livro.adicionaAutor(autor);
 		System.out.println("Escrito por: " + autor.getNome());
 	}
-
+	@Transacional
 	public void gravar() {
 		System.out.println("Gravando livro " + this.livro.getTitulo());
 
@@ -119,10 +116,11 @@ public class LivroBean implements Serializable {
 		System.out.println("Carregando livro " + livro.getTitulo());
 		this.livro = livro;
 	}
-
+	@Transacional
 	public void remover(Livro livro) {
 		System.out.println("Removendo livro " + livro.getTitulo());
 		livroDao.remove(livro);
+		this.livros.remove(livro);
 	}
 
 	public void removerAutorDoLivro(Autor autor) {

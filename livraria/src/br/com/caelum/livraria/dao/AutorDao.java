@@ -9,37 +9,37 @@ import javax.persistence.EntityManager;
 
 import br.com.caelum.livraria.modelo.Autor;
 
-public class AutorDao implements Serializable {
+public class AutorDao implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private EntityManager em;
+    private EntityManager em;
 
-	private DAO<Autor> dao;
+    private DAO<Autor> dao;
 
-	@PostConstruct
-	void init() {
-		this.dao = new DAO<Autor>(em, Autor.class);
-	}
+    @PostConstruct
+    void init() {
+        this.dao = new DAO<Autor>(this.em, Autor.class);
+    }
 
-	public void adiciona(Autor autor) {
-		dao.adiciona(autor);
-	}
+    public void adiciona(Autor t) {
+        dao.adiciona(t);
+    }
 
-	public void remove(Autor autor) {
-		dao.remove(autor);
-	}
+    public void remove(Autor t) {
+        dao.remove(t);
+    }
 
-	public void atualiza(Autor autor) {
-		dao.atualiza(autor);
-	}
+    public void atualiza(Autor t) {
+        dao.atualiza(t);
+    }
 
-	public List<Autor> listaTodos() {
-		return dao.listaTodos();
-	}
+    public List<Autor> listaTodos() {
+        return dao.listaTodos();
+    }
 
-	public Autor buscaPorId(Integer id) {
-		return dao.buscaPorId(id);
-	}
+    public Autor buscaPorId(Integer id) {
+        return dao.buscaPorId(id);
+    }
 }
