@@ -114,7 +114,7 @@ public class LivroBean implements Serializable {
 
 	public void carregar(Livro livro) {
 		System.out.println("Carregando livro " + livro.getTitulo());
-		this.livro = livro;
+		this.livro = livroDao.buscaPorId(livro.getId());
 	}
 	@Transacional
 	public void remover(Livro livro) {

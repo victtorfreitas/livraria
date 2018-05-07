@@ -1,4 +1,4 @@
-package br.com.caelum.livraria.util;
+	package br.com.caelum.livraria.util;
 
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
